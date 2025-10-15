@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= company %> - Đánh giá</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1>🏢 <%= company %></h1>
+
+    <% let averageRating = 0; if (reviews && reviews.length > 0) { const
+    totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    averageRating = (totalRating / reviews.length).toFixed(1); } %>
+
+    <p>⭐ Điểm trung bình: <strong><%= averageRating %>/5</strong></p>
+    <a href="/">⬅ Trở lại</a>
+
+    <h2>Thêm đánh giá mới:</h2>
+    <form action="/add-review" method="POST">
+      <input type="hidden" name="company" value="<%= company %>" />
+      <input name="reviewer" placeholder="Tên bạn (hoặc để trống)" />
+      <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        placeholder="Điểm (1-5)"
+        required
+      />
+      <textarea name="comment" placeholder="Nhận xét"></textarea>
+      <button type="submit">Gửi</button>
+    </form>
+
+    <h2>💬 Các đánh giá:</h2>
+
+    <% if (reviews && reviews.length > 0) { %> <%
+    reviews.forEach(function(review) { %>
+    <div class="review">
+      <p>
+        <strong><%= review.reviewer || "Ẩn danh" %></strong> - ⭐ <%=
+        review.rating %>
+      </p>
+      <p><%= review.comment %></p>
+      <hr />
+    </div>
+    <% }); %> <% } else { %>
+    <p>Chưa có đánh giá nào cho công ty này.</p>
+    <% } %>
+  </body>
+</html>

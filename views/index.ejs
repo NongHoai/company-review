@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đánh giá công ty</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1>🏢 Danh sách công ty</h1>
+    <form action="/add-review" method="POST">
+      <input name="company" placeholder="Tên công ty" required />
+      <input name="reviewer" placeholder="Tên bạn (hoặc để trống)" />
+      <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        placeholder="Điểm (1-5)"
+        required
+      />
+      <textarea name="comment" placeholder="Nhận xét"></textarea>
+      <button type="submit">Gửi đánh giá</button>
+    </form>
+
+    <h2>Các công ty đã được đánh giá:</h2>
+    <ul>
+      <% companies.forEach(c => { %>
+      <li><a href="/company/<%= c %>"><%= c %></a></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
